@@ -18,7 +18,7 @@ function showTime(){
     hour = hour % 12 || 12;
 
     // Output Time
-    time.innerHTML = `${addZero(hour)}<span>:</span>${addZero(min)}<span></span>:${addZero(sec)}`;
+    time.innerHTML = `${addZero(hour)}<span>:</span>${addZero(min)}<span></span>:${addZero(sec)} ${amPm}`;
 
     setTimeout(showTime, 1000);
 }
@@ -58,6 +58,19 @@ function getName(){
     }
 }
 
+// Set Name
+function setName(e){
+    if(e.type === 'keypress'){
+        // Make sure enter is pressed
+        if(e.which == 13 || e.keyCode == 13){
+            localStorage.setItem('name', e.target.innerText);
+            name.blur();
+        }
+    } else {
+        localStorage.setItem('name', e.target.innerText);
+    }
+}
+
 // Get Focus
 function getFocus(){
     if(localStorage.getItem('focus') === null){
@@ -66,6 +79,24 @@ function getFocus(){
         focus.textContent = localStorage.getItem('focus');
     }
 }
+
+// Set Focus
+function setFocus(e){
+    if(e.type === 'keypress'){
+        // Make sure enter is pressed
+        if(e.which == 13 || e.keyCode == 13){
+            localStorage.setItem('focus', e.target.innerText);
+            focus.blur();
+        }
+    } else {
+        localStorage.setItem('focus', e.target.innerText);
+    }
+}
+
+name.addEventListener('keypress', setName);
+name.addEventListener('blur', setName);
+focus.addEventListener('keypress', setFocus);
+focus.addEventListener('blur', setFocus);
 
 // Run
 showTime();
